@@ -5,3 +5,4 @@ numbergenerator/build
 web/build
 **/out
 .git
+*.iml
