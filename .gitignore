@@ -1,0 +1,7 @@
+.gradle
+build
+.idea
+numbergenerator/build
+web/build
+**/out
+.git

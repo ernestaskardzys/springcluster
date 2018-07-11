@@ -1,0 +1,30 @@
+version: '3'
+services:
+    web:
+        build: web
+        image: web_container:latest
+        environment:
+          - numberGenerator.url=number-generator:8080
+        expose:
+            - 8080
+        depends_on:
+          - number-generator
+
+    number-generator:
+        build: numbergenerator
+        image: number_generator_container:latest
+        expose:
+            - 8080
+
+    load-balancer:
+        image: dockercloud/haproxy
+        restart: on-failure
+        environment:
+            # Use the node which has the lowest amount of connections
+          - BALANCE=leastconn
+        ports:
+          - 80:80
+        links:
+          - web
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
